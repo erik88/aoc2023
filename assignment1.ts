@@ -21,7 +21,7 @@ function solution1() {
 }
 
 function solution2() {
-	const haystack = [
+	const haystack: [string, number][] = [
 		["one", 1],
 		["two", 2],
 		["three", 3],

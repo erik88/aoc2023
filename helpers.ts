@@ -7,6 +7,8 @@ declare global {
 		mapToNumbers(): number[];
 		groupsOf(n: number): [T][];
 		take(n: number): T[];
+		sortBy(p: (t: T) => any): T[];
+		groupBy<X>(p: (t: T) => X): Map<X, T[]>;
 	}
 	interface Set<T> {
 		intersection<T>(s: Set<T>): Set<T>;
@@ -54,6 +56,24 @@ Array.prototype.groupsOf = function <T>(n: number) {
 Array.prototype.take = function (n: number) {
 	return this.splice(0, n);
 };
+Array.prototype.sortBy = function <T>(p: (t: T) => any): T[] {
+	const types = new Set(this.map((x) => typeof p(x)));
+	if (types.size > 1) {
+		throw new Error(
+			"sortBy contained more than 1 type: " + [...types].join(", ")
+		);
+	}
+
+	return [...this].sort((x, y) => {
+		const a = p(x);
+		const b = p(y);
+		return a < b ? -1 : a > b ? 1 : 0;
+	});
+};
+Array.prototype.groupBy = function <T, X>(p: (t: T) => X): Map<X, T[]> {
+	return Map.groupBy(this, p);
+};
+
 Set.prototype.intersection = function <T>(s: Set<T>): Set<T> {
 	return new Set([...this].filter((x) => s.has(x)));
 };
