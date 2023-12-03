@@ -77,3 +77,7 @@ Array.prototype.groupBy = function <T, X>(p: (t: T) => X): Map<X, T[]> {
 Set.prototype.intersection = function <T>(s: Set<T>): Set<T> {
 	return new Set([...this].filter((x) => s.has(x)));
 };
+
+export function isInt(x: string): boolean {
+	return isNaN(parseInt(x));
+}
