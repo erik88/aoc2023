@@ -1,4 +1,4 @@
-import "../../helpers.ts";
+import "/helpers/arrays.ts";
 
 const input = Deno.readTextFileSync("input2.txt");
 
