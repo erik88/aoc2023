@@ -1,5 +1,5 @@
 import "./helpers.ts";
 
-const input = Deno.readTextFileSync("input3.txt");
+let input = Deno.readTextFileSync("input.txt");
 
 const lines = input.split("\n");
