@@ -11,7 +11,13 @@
 			"program": "${workspaceFolder}/index.ts",
 			"cwd": "${workspaceFolder}",
 			"runtimeExecutable": "/home/erik/.cargo/bin/deno",
-			"runtimeArgs": ["run", "--unstable", "--inspect-wait", "--allow-read"],
+			"runtimeArgs": [
+				"run",
+				"--unstable",
+				"--inspect-wait",
+				"--allow-read",
+				"--allow-write"
+			],
 			"attachSimplePort": 9229
 		}
 	]

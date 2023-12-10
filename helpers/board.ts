@@ -21,6 +21,12 @@ export class Board<T> {
 		this.height = height;
 	}
 
+	static fromEmpty<T>(val: T, width: number, height: number): Board<T> {
+		const arr = new Array(width * height);
+		arr.fill(val);
+		return new Board(arr, width, height);
+	}
+
 	static fromArray<T>(arr: T[], width: number): Board<T> {
 		return new Board(arr, width, arr.length / width);
 	}
@@ -34,6 +40,30 @@ export class Board<T> {
 		const height = lines.length;
 		const width = lines[0]?.length ?? 0;
 		return new Board(lines.join("").split(""), width, height);
+	}
+
+	find(t: T): [number, number] {
+		for (let i = 0; i < this.arr.length; i++) {
+			if (this.arr[i] === t) {
+				return [i % this.width, Math.floor(i / this.width)];
+			}
+		}
+		throw new Error("Board.find " + t + "did not return any objects");
+	}
+
+	set(x: number, y: number, t: T) {
+		if (!(0 <= x && x < this.width)) {
+			throw new Error(
+				"Board.set(" + x + "," + y + ") where width=" + this.width
+			);
+		}
+		if (!(0 <= y && y < this.height)) {
+			throw new Error(
+				"Board.set(" + x + "," + y + ") where height=" + this.height
+			);
+		}
+
+		this.arr[x + y * this.width] = t;
 	}
 
 	get(x: number, y: number): T {
@@ -72,6 +102,19 @@ export class Board<T> {
 			return val;
 		}
 		return undefined;
+	}
+
+	mapAll(f: (t: T, xcurr: number, ycurr: number) => T) {
+		for (let x = 0; x < this.width; x++)
+			for (let y = 0; y < this.height; y++)
+				this.arr[x + y * this.width] = f(this.arr[x + y * this.width], x, y);
+	}
+
+	toString(): string {
+		let rows: string[] = [];
+		for (let r = 0; r < this.height; r++)
+			rows.push(this.arr.slice(r * this.width, (r + 1) * this.width).join(""));
+		return rows.join("\n");
 	}
 
 	print(
