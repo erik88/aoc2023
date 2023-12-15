@@ -110,6 +110,22 @@ export class Board<T> {
 				this.arr[x + y * this.width] = f(this.arr[x + y * this.width], x, y);
 	}
 
+	getColumn(x: number): T[] {
+		const arr: T[] = [];
+		for (let y = 0; y < this.height; y++) {
+			arr.push(this.get(x, y));
+		}
+		return arr;
+	}
+
+	getRow(y: number): T[] {
+		const arr: T[] = [];
+		for (let x = 0; x < this.width; x++) {
+			arr.push(this.get(x, y));
+		}
+		return arr;
+	}
+
 	toString(): string {
 		let rows: string[] = [];
 		for (let r = 0; r < this.height; r++)

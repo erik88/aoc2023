@@ -1,0 +1,7 @@
+{
+  "version": "3",
+  "remote": {
+    "https://deno.land/std@0.207.0/encoding/_util.ts": "f368920189c4fe6592ab2e93bd7ded8f3065b84f95cd3e036a4a10a75649dcba",
+    "https://deno.land/std@0.207.0/encoding/hex.ts": "a384101d02cd87036c708f540825feb5b073c8527a00d635e48b2e69c992a5f9"
+  }
+}
