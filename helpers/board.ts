@@ -126,6 +126,10 @@ export class Board<T> {
 		return arr;
 	}
 
+	isInside(x: number, y: number): boolean {
+		return 0 <= x && x < this.width && 0 <= y && y < this.height;
+	}
+
 	toString(): string {
 		let rows: string[] = [];
 		for (let r = 0; r < this.height; r++)
