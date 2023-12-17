@@ -110,6 +110,14 @@ export class Board<T> {
 				this.arr[x + y * this.width] = f(this.arr[x + y * this.width], x, y);
 	}
 
+	newFromMap<X>(f: (t: T, xcurr: number, ycurr: number) => X): Board<X> {
+		const arr = [];
+		for (let x = 0; x < this.width; x++)
+			for (let y = 0; y < this.height; y++)
+				arr[x + y * this.width] = f(this.arr[x + y * this.width], x, y);
+		return new Board(arr, this.width, this.height);
+	}
+
 	getColumn(x: number): T[] {
 		const arr: T[] = [];
 		for (let y = 0; y < this.height; y++) {
