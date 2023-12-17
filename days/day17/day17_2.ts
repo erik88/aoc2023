@@ -7,15 +7,16 @@ const input = Deno.readTextFileSync("input.txt");
 
 const bStr = Board.fromString(input);
 const b = bStr.newFromMap((x) => parseInt(x));
-const shortest = b.newFromMap((_) => [
-	99999, 99999, 99999, 99999, 99999, 99999, 99999, 99999, 99999, 99999, 99999,
-	99999,
-]);
+const shortest = b.newFromMap((_) => {
+	const arr = new Array(28);
+	arr.fill(9999999);
+	return arr;
+});
 
-//shortest (0,1,2) = x positive
-//shortest (3,4,5) = x negative
-//shortest (6,7,8) = y positive
-//shortest (9,10,11) = y negative
+//shortest (0=4,1,2,3,4,5,6=10) = x positive
+//shortest (7,8,9,10,11,12,13) = x negative
+//shortest (14,15,16,17,18,19,20) = y positive
+//shortest (21,22,23,24,25,26,27) = y negative
 
 let poi: [number, number, number, number, number, number][] = [];
 let currentBest = 999999;
@@ -104,15 +105,15 @@ function evaluate(
 	}
 }
 
-//shortest (0,1,2) = x positive
-//shortest (3,4,5) = x negative
-//shortest (6,7,8) = y positive
-//shortest (9,10,11) = y negative
+//shortest (0=4,1,2,3,4,5,6=10) = x positive
+//shortest (7,8,9,10,11,12,13) = x negative
+//shortest (14,15,16,17,18,19,20) = y positive
+//shortest (21,22,23,24,25,26,27) = y negative
 
 function getShortestIndex(dirX: number, dirY: number, dirLen: number): number {
-	if (dirX === 1) return dirLen - 1;
-	if (dirX === -1) return dirLen + 2;
-	if (dirY === 1) return dirLen + 5;
-	if (dirY === -1) return dirLen + 8;
+	if (dirX === 1) return dirLen - 4;
+	if (dirX === -1) return dirLen + 3;
+	if (dirY === 1) return dirLen + 10;
+	if (dirY === -1) return dirLen + 17;
 	throw new Error("No direction!");
 }
