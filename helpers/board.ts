@@ -104,6 +104,28 @@ export class Board<T> {
 		return undefined;
 	}
 
+	mapRange(
+		xstart: number,
+		ystart: number,
+		xend: number,
+		yend: number,
+		f: (t: T, xcurr: number, ycurr: number) => T
+	) {
+		if (xstart > xend) {
+			const tmp = xstart;
+			xstart = xend;
+			xend = tmp;
+		}
+		if (ystart > yend) {
+			const tmp = ystart;
+			ystart = yend;
+			yend = tmp;
+		}
+		for (let x = xstart; x <= xend; x++)
+			for (let y = ystart; y <= yend; y++)
+				this.arr[x + y * this.width] = f(this.arr[x + y * this.width], x, y);
+	}
+
 	mapAll(f: (t: T, xcurr: number, ycurr: number) => T) {
 		for (let x = 0; x < this.width; x++)
 			for (let y = 0; y < this.height; y++)
