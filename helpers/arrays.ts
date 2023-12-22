@@ -13,6 +13,7 @@ declare global {
 		take(n: number): T[];
 		sortBy(p: (t: T) => any): T[];
 		groupBy<X>(p: (t: T) => X): Map<X, T[]>;
+		unique(p: (t: T) => any): T[];
 	}
 }
 Array.prototype.sum = function () {
@@ -169,4 +170,22 @@ Array.prototype.sortBy = function <T>(p: (t: T) => any): T[] {
 };
 Array.prototype.groupBy = function <T, X>(p: (t: T) => X): Map<X, T[]> {
 	return Map.groupBy(this, p);
+};
+Array.prototype.unique = function <T>(p: (t: T) => any): T[] {
+	const types = new Set(this.map((x) => typeof p(x)));
+	if (types.size > 1) {
+		throw new Error(
+			"sortBy contained more than 1 type: " + [...types].join(", ")
+		);
+	}
+
+	const included = new Set();
+	return [...this].filter((x) => {
+		const key = p(x);
+		if (!included.has(key)) {
+			included.add(key);
+			return true;
+		}
+		return false;
+	});
 };
