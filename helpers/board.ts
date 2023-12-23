@@ -160,6 +160,12 @@ export class Board<T> {
 		return 0 <= x && x < this.width && 0 <= y && y < this.height;
 	}
 
+	forEach(f: (t: T, x: number, y: number) => void) {
+		for (let x = 0; x < this.width; x++)
+			for (let y = 0; y < this.height; y++)
+				f(this.arr[x + y * this.width], x, y);
+	}
+
 	toString(): string {
 		let rows: string[] = [];
 		for (let r = 0; r < this.height; r++)
